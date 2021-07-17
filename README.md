@@ -1,6 +1,8 @@
 # N26 backend challenge
 ![Build Status](https://img.shields.io/github/workflow/status/thephpleague/plates/PHP/v3?style=flat-square)
 
+> This is the branch of rejected solution for future comparison
+
 This was a backend challenge which got rejected.
 Thing are needed to be done in a proper way:
 - [ ] Make different controllers for Transactions and Statistics;
