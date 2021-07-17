@@ -1,9 +1,7 @@
 package com.n26.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.n26.dto.StatisticsDto;
 import com.n26.dto.TransactionDto;
-import com.n26.service.StaticticService;
 import com.n26.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,30 +19,18 @@ import java.time.format.DateTimeParseException;
 /**
  * REST Controller for all transactions related
  */
-@Controller
+@Controller(value = "/transactions")
 public class TransactionsController {
 
     @Autowired
     private TransactionService transactionService;
-
-    @Autowired
-    private StaticticService staticticService;
-
-    /**
-     * Method to get statistics.
-     * @return StatisticsDto
-     */
-    @GetMapping(value = "/statistics")
-    public ResponseEntity<?> getStatistics () {
-        return new ResponseEntity<StatisticsDto>(staticticService.getStatistics(), HttpStatus.OK);
-    }
 
     /**
      * Method to add transaction.
      * @param transaction
      * @return
      */
-    @PostMapping(value = "/transactions", produces= MediaType.APPLICATION_JSON_VALUE, headers = {"Content-type=application/json"})
+    @PostMapping(produces= MediaType.APPLICATION_JSON_VALUE, headers = {"Content-type=application/json"})
     public ResponseEntity<?> postTransactions (@RequestBody JsonNode transaction) {
         try {
             TransactionDto transac = new TransactionDto(transaction);
@@ -72,7 +57,7 @@ public class TransactionsController {
      * Method to delete all transactions stored
      * @return
      */
-    @DeleteMapping(value = "/transactions", produces= MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteTransactions () {
       transactionService.deleteAllTransactions();
       return new ResponseEntity<String>(HttpStatus.NO_CONTENT);

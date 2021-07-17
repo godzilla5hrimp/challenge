@@ -3,7 +3,7 @@
 
 This was a backend challenge which got rejected.
 Thing are needed to be done in a proper way:
-- [ ] Make different controllers for Transactions and Statistics;
+- [X] Make different controllers for Transactions and Statistics;
 - [ ] Implement ControllerAdvice/ExceptionHandler;
 - [ ] Make sure to use Model validation/deserialisation;
 - [ ] Get rid of deprecated feature of Java;
