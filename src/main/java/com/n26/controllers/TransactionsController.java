@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -62,5 +63,11 @@ public class TransactionsController {
       transactionService.deleteAllTransactions();
       return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
     }
+
+
+//    @ExceptionHandler({ CustomException1.class, CustomException2.class })
+//    public void handleException() {
+//        //
+//    }
 
 }

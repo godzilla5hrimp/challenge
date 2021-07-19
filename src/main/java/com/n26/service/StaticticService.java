@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -50,16 +52,16 @@ public class StaticticService {
      */
     private StatisticsDto countStat (List<TransactionDto> transactions) {
         StatisticsDto stat = new StatisticsDto();
-        BigDecimal sum = BigDecimal.valueOf(0);
-        BigDecimal max = BigDecimal.valueOf(Double.MIN_VALUE);
-        BigDecimal min = transactions.get(0).getAmount();
+        BigDecimal sum = BigDecimal.valueOf(0).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal max = BigDecimal.valueOf(Double.MIN_VALUE).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal min = transactions.get(0).getAmount().setScale(2, RoundingMode.HALF_UP);
         Integer count = 0;
         for(TransactionDto listElement  : transactions){
             if (Math.abs(
                     ChronoUnit.SECONDS.between(
                         LocalDateTime.now().toInstant(OffsetDateTime.now().getOffset()),
                         listElement.getTimestamp())) < TR_OLD_VALUE ) {
-                sum = sum.add(listElement.getAmount().setScale(BigDecimal.ROUND_HALF_UP));
+                sum = sum.add(listElement.getAmount());
                 count++;
                 if(max.compareTo(listElement.getAmount()) == -1) {
                     max = listElement.getAmount();
@@ -70,10 +72,10 @@ public class StaticticService {
             }
         }
         stat.setCount(count);
-        stat.setSum(sum.setScale(2, BigDecimal.ROUND_HALF_UP));
-        stat.setAvg(sum.divide(BigDecimal.valueOf(count), BigDecimal.ROUND_HALF_UP).setScale(2, BigDecimal.ROUND_HALF_UP));
-        stat.setMax(max.setScale(2, BigDecimal.ROUND_HALF_UP));
-        stat.setMin(min.setScale(2, BigDecimal.ROUND_HALF_UP));
+        stat.setSum(sum);
+        stat.setAvg(sum.divide(BigDecimal.valueOf(count),2, RoundingMode.HALF_UP));
+        stat.setMax(max.round(new MathContext(MathContext.UNLIMITED.getPrecision(), RoundingMode.HALF_UP)).setScale(2));
+        stat.setMin(min.round(new MathContext(MathContext.UNLIMITED.getPrecision(), RoundingMode.HALF_UP)).setScale(2));
         return stat;
     }
 

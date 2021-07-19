@@ -6,7 +6,7 @@ Thing are needed to be done in a proper way:
 - [X] Make different controllers for Transactions and Statistics;
 - [ ] Implement ControllerAdvice/ExceptionHandler;
 - [ ] Make sure to use Model validation/deserialisation;
-- [ ] Get rid of deprecated feature of Java;
+- [X] Get rid of deprecated feature of Java;
 - [ ] Refactor statistics count;
 - [ ] Cover code with additional tests;
 - [ ] Make sure everything is thread safe;  
