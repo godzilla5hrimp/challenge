@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Transaction service class.
@@ -27,7 +28,7 @@ public class TransactionService {
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(TransactionService.class);
     private static final Integer TR_OLD_VALUE = 60;
 
-    private List<TransactionDto> runtimeBeans = new ArrayList<TransactionDto>();
+    private CopyOnWriteArrayList<TransactionDto> runtimeBeans = new CopyOnWriteArrayList<TransactionDto>();
 
     /**
      * Create transaction
