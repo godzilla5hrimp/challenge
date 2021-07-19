@@ -26,11 +26,6 @@ import java.time.format.DateTimeParseException;
 @NoArgsConstructor
 public class TransactionDto {
 
-    public TransactionDto(JsonNode body) throws DateTimeParseException {
-        this.amount = new BigDecimal(body.get("amount").asText());
-        this.timestamp = Instant.parse(body.get("timestamp").asText());
-    }
-
     /**
      * Timestamp of a transaction
      */
@@ -42,19 +37,7 @@ public class TransactionDto {
     /**
      * Amount of transactions
      */
-    @JsonSerialize(using = BigDecimalSerialize.class)
     @JsonProperty("amount")
     private BigDecimal amount;
-
-
-    /**
-     * Serializer for BigDecimal
-     */
-    public class BigDecimalSerialize extends JsonSerializer<BigDecimal> {
-        @Override
-        public void serialize(BigDecimal value, JsonGenerator gen, SerializerProvider serializerProvider) throws IOException {
-            gen.writeString(value.setScale(2, BigDecimal.ROUND_HALF_DOWN) + "");
-        }
-    }
 
 }
