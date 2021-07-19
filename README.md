@@ -9,6 +9,7 @@ Thing are needed to be done in a proper way:
 - [X] Get rid of deprecated feature of Java;
 - [ ] Refactor statistics count;
 - [ ] Cover code with additional tests;
-- [X] Make sure everything is thread safe;  
+- [X] Make sure everything is thread safe;
+- [ ] Get rid of Enums in favor of Exception handling;
   
 The rejected code will be stored in a different branch for future comparison.
